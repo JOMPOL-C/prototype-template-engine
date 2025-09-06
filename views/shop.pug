@@ -1,0 +1,27 @@
+extends layout/main-layout.pug 
+
+block styles
+    link(rel="stylesheet", href="/css/product.css")
+
+block content
+    h1 My Shop Mak Mak
+    p list of product 
+
+      if prods && prods.length > 0
+        .grid 
+          each product in prods
+            article.card.product-item 
+              header.card__header 
+                h2.product_title #{product.title}
+              .card__image
+                img(src="/images/product-1.jpg" alt="Black Cat")
+              .card__content
+                p.product__description #{product.description}
+                h2.product__price $#{product.price}
+              footer.card__footer
+                form(action="/admin/delete-product" method="POST")
+                  input(type="hidden" name="index" value=product.index)
+                  button.btn(type="submit") REMOVE
+
+      else
+        h1 No products found
